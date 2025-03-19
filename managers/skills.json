@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Fireball",
+        "skill_type": "Magic",
+        "effects": ["Burn", "Area Damage"],
+        "is_active": true,
+        "combat_only": true,
+        "cooldown": 3,
+        "stamina_cost": 10,
+        "requirements": {"level": 5, "mana": 20}
+    },
+    {
+        "name": "Power Strike",
+        "skill_type": "Melee",
+        "effects": ["Knockback"],
+        "is_active": true,
+        "combat_only": true,
+        "cooldown": 1,
+        "stamina_cost": 5,
+        "requirements": {"level": 2, "strength": 15}
+    }
+]
