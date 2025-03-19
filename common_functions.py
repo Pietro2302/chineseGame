@@ -1,7 +1,7 @@
 import json
 from enum import Enum
 import os
-FILENAME = "characters.json"
+FILENAME = "saves/characters.json"
 
 class MessageType(Enum):
     INFO = "INFO"             # General information
@@ -37,8 +37,8 @@ def save_character(new_character):
         json.dump(characters, json_file, indent=4)
 
 class GameMessage:
-    def __init__(self, message_type, content, sender=None, recipient=None):
-        self.message_type = MessageType
+    def __init__(self, message_type :MessageType, content, sender=None, recipient=None):
+        self.message_type = message_type
         self.content = content
         self.sender = sender
         self.recipient = recipient

@@ -1,5 +1,4 @@
 from enum import Enum
-from styles import narrator_print
 class EquipmentSlot(Enum):
     BOTTOM = "bottom"
     TOP = "top"
@@ -31,7 +30,7 @@ class InventoryManager:
         self.bag = bag if bag is not None else {}
 
 
-    def assignItem(self, recepient: EquipmentSlot, item, console):
+    def assignItem(self, recepient: EquipmentSlot, item):
         if not (isinstance(item, Item) and recepient == item.item_type):
             print("Item assignment failed.")
             return
@@ -41,32 +40,62 @@ class InventoryManager:
                 if len(self.bottom) <= 1:
                     self.bottom[item.name] = item
                 else:
-                    narrator_print("It seems like you have already something equipped there. I shall put it in the bag!")
+                    print(f"TOO MUCH STUFF IN {item.item_type.value}")
                     if len(self.bag) <= 10:
+                        print("INTO THE BAG")
                         self.bag[item.name] = item
                         return
                     else:
-                        narrator_print("It seems like the bag is already fill. Let's try another time !")
+                        print("BAG FULL")
+                        return
             case EquipmentSlot.TOP:
                 if len(self.top) <= 1:
                     self.top[item.name] = item
                 else:
-                    return
+                    print(f"TOO MUCH STUFF IN {item.item_type.value}")
+                    if len(self.bag) <= 10:
+                        print("INTO THE BAG")
+                        self.bag[item.name] = item
+                        return
+                    else:
+                        print("BAG FULL")
+                        return
             case EquipmentSlot.RIGHTHAND:              
                 if len(self.rightHand) <= 1:
                     self.rightHand[item.name] = item
                 else:
-                    return
+                    print(f"TOO MUCH STUFF IN {item.item_type.value}")
+                    if len(self.bag) <= 10:
+                        print("INTO THE BAG")
+                        self.bag[item.name] = item
+                        return
+                    else:
+                        print("BAG FULL")
+                        return
             case EquipmentSlot.LEFTHAND:
                 if len(self.leftHand) <= 1:
                     self.leftHand[item.name] = item
                 else:
-                    return
+                    print(f"TOO MUCH STUFF IN {item.item_type.value}")
+                    if len(self.bag) <= 10:
+                        print("INTO THE BAG")
+                        self.bag[item.name] = item
+                        return
+                    else:
+                        print("BAG FULL")
+                        return
             case EquipmentSlot.HEAD:
                 if len(self.head) <= 1:
                     self.head[item.name] = item
                 else:
-                    return
+                    print(f"TOO MUCH STUFF IN {item.item_type.value}")
+                    if len(self.bag) <= 10:
+                        print("INTO THE BAG")
+                        self.bag[item.name] = item
+                        return
+                    else:
+                        print("BAG FULL")
+                        return
             case EquipmentSlot.BAG:
                 if len(self.bag) <= 10:
                     self.bag[item.name] = item

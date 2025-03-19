@@ -23,7 +23,7 @@ class Skill:
 
 
 class SkillsManager:
-    def __init__(self, skills_file="managers/skills.json"):
+    def __init__(self, skills_file="saves/skills.json"):
         self.skills = {}
         self.load_skills(skills_file)
         self.cooldowns = {}
