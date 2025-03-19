@@ -1,5 +1,5 @@
 import uuid
-from managers.character_manager import CharacterManager
+from managers.personal_managers.character_manager import CharacterManager
 
 
 class Character:
