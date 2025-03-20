@@ -1,6 +1,3 @@
-import json
-
-
 class Skill:
     def __init__(self, name, skill_type, effects, is_active,
                  combat_only, cooldown, stamina_cost,
@@ -22,15 +19,19 @@ class Skill:
         )
 
 
-class SkillsManager:
-    def __init__(self, skills_file="saves/skills.json"):
-        self.skills = {}
-        self.load_skills(skills_file)
+class CharacterSkillsManager:
+    def __init__(self, skills = None):
+        self.skills = skills if skills is not None else {}
         self.cooldowns = {}
+        print("SKILLS MANAGER:")
+        print(self)
 
-    def load_skills(self, filename):
-        with open(filename, "r") as file:
-            skills_data = json.load(file)
-            for skill_data in skills_data:
-                skill = Skill(**skill_data)
-                self.skills[skill.name] = skill
+    def to_dict(self):
+        return {
+            "skills": self.skills,
+            "cooldowns": self.cooldowns
+        }
+
+    def __str__(self):
+        return str(self.to_dict())
+

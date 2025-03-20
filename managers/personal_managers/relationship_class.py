@@ -33,12 +33,16 @@ class Relationship:
 
 
 class RelationshipsManager:
-    def __init__(self):
-        self.npc_relations = {}
-        self.factions_relations = {}
+    def __init__(self, npc_relations = None, factions_relations = None):
+        self.npc_relations = npc_relations if npc_relations is not None else {}
+        self.factions_relations = factions_relations if factions_relations is not None else {}
+        print("RELATIONSHIP MANAGER:")
+        print(self)
 
     def to_dict(self):
         return {
             "npc_relations": self.npc_relations,
             "factions_relations": self.factions_relations
         }
+    def __str__(self):
+        return str(self.to_dict())

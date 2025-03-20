@@ -1,7 +1,7 @@
 import json
 from enum import Enum
 import os
-FILENAME = "saves/characters.json"
+FILENAME = "saves/setup/characters.json"
 
 class MessageType(Enum):
     INFO = "INFO"             # General information

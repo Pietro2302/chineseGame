@@ -15,8 +15,16 @@ class Title:
 
 
 class TitlesManager:
-    def __init__(self):
-        self.titles = {}
+    def __init__(self, titles = None):
+        self.titles = titles if titles is not None else {}
+        print("TITLE MANAGER:")
+        print(self)
 
     def to_dict(self):
-        return {title.name: effects for title, effects in self.titles.items()}
+        return {title_name: {
+                "effects": title.effects,
+                "description": title.description
+            }for title_name, title in self.titles.items()}
+
+    def __str__(self):
+        return str(self.to_dict())

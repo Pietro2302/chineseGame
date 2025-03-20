@@ -20,7 +20,7 @@ class Item:
 
 
 class InventoryManager:
-    def __init__(self, bottom = None, top = None, leftHand = None, rightHand = None, head = None, bag = None):
+    def __init__(self, bottom=None, top=None, leftHand=None, rightHand=None, head=None, bag=None):
         self.items = {}
         self.bottom = bottom if bottom is not None else {}
         self.top = top if top is not None else {}
@@ -28,6 +28,26 @@ class InventoryManager:
         self.rightHand = rightHand if rightHand is not None else {}
         self.head = head if head is not None else {}
         self.bag = bag if bag is not None else {}
+        print("INVENTORY MANAGER:")
+        print(self)
+    
+    def to_dict(self):
+        """Return a dictionary representation of the inventory."""
+        return {
+            "items": self.items,
+            "bottom": self.bottom,
+            "top": self.top,
+            "leftHand": self.leftHand,
+            "rightHand": self.rightHand,
+            "head": self.head,
+            "bag": self.bag
+        }
+    
+    def __str__(self):
+        """Return a formatted string representation of the inventory."""
+        inv_dict = self.to_dict()
+        output_lines = [f"{slot}: {content}" for slot, content in inv_dict.items()]
+        return "\n".join(output_lines)
 
 
     def assignItem(self, recepient: EquipmentSlot, item):

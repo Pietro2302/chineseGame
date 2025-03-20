@@ -24,5 +24,15 @@ class Reputation:
 
 
 class ReputationsManager:
-    def __init__(self):
-        self.reputations = {}
+    def __init__(self, reputations):
+        self.reputations = reputations if reputations is not None else {}
+        print("REPUTATION MANAGER:")
+        print(self)
+
+
+    def to_dict(self):
+        """Return a dictionary representation of the reputations."""
+        return {"reputations": self.reputations}
+
+    def __str__(self):
+        return str(self.to_dict())
