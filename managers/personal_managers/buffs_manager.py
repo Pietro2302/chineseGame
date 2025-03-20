@@ -30,8 +30,8 @@ class BuffsManager:
     
     def to_dict(self):
         return {
-            "Temporary": {name: buff.to_dict() for name, buff in self.temporary_buffs.items()},
-            "Permanent": {name: buff.to_dict() for name, buff in self.permanent_buffs.items()},
+            "Temporary": self.temporary_buffs,
+            "Permanent": self.permanent_buffs,
         }
     
     def __str__(self):

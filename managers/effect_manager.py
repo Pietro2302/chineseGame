@@ -39,8 +39,16 @@ def apply_buff_effect(effect: Effect, target: Any) -> None:
     if buff == None:
         print(f"[Effect] No buff detected")
         return
-    elif buff["type"] == "temporary":
-        target.buffs.temporary_buffs[buff["name"]] = buff
+    if "Temporary" not in target.buffs:
+        target.buffs["Temporary"] = {}
+    if "Permanent" not in target.buffs:
+        target.buffs["Permanent"] = {}
+
+    if buff["type"] == "temporary":
+        target.buffs["Temporary"][buff["name"]] = buff
+        print(f"[Effect] Applied Temporary Buff: {buff["name"]} to {target.first_name}")
     elif buff["type"] == "permanent":
-        target.buffs.permanent_buffs[buff["name"]] = buff
+        target.buffs["Permanent"][buff["name"]] = buff
+        print(f"[Effect] Applied Permanent Buff: {buff["name"]} to {target.first_name}")
+    
 

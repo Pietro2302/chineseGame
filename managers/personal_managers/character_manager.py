@@ -71,5 +71,5 @@ class CharacterManager:
         self.titleManager = TitlesManager(character.titles)
         self.buffsManager = BuffsManager(character.buffs.get("Permanent"),character.buffs.get("Temporary"))
         self.effectManager = effectManager
-        print(character)
+        
         
