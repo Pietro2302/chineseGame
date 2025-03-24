@@ -1,7 +1,18 @@
+from enum import Enum
+
+class SkillType(Enum):
+    PERSONAL = "personal"
+    MARTIAL = "martial"
+    SOCIAL = "social"
+    STRATEGIC = "strategic"
+    SCHOLARLY = "scholarly"
+    SURVIVAL = "survival"
+
+
 class Skill:
-    def __init__(self, name, skill_type, effects, is_active,
-                 combat_only, cooldown, stamina_cost,
-                 requirements):
+    def __init__(self, name:str, skill_type:SkillType, effects:dict, is_active:bool,
+                 combat_only:bool, cooldown:int, stamina_cost:int,
+                 requirements:dict):
         self.name = name
         self.skill_type = skill_type
         self.is_active = is_active
@@ -22,14 +33,10 @@ class Skill:
 class CharacterSkillsManager:
     def __init__(self, skills = None):
         self.skills = skills if skills is not None else {}
-        self.cooldowns = {}
-        print("SKILLS MANAGER:")
-        print(self)
 
     def to_dict(self):
         return {
             "skills": self.skills,
-            "cooldowns": self.cooldowns
         }
 
     def __str__(self):

@@ -26,13 +26,23 @@ class Reputation:
 class ReputationsManager:
     def __init__(self, reputations):
         self.reputations = reputations if reputations is not None else {}
-        print("REPUTATION MANAGER:")
-        print(self)
 
 
     def to_dict(self):
-        """Return a dictionary representation of the reputations."""
-        return {"reputations": self.reputations}
+        return  {
+            "Honorable": self.reputations["Honorable"],
+            "Feared": self.reputations["Feared"],
+            "Corrupt": self.reputations["Corrupt"],
+            "Neutral": self.reputations["Neutral"],
+            "Noble": self.reputations["Noble"],
+            "Infamous": self.reputations["Infamous"],
+            "Treacherous": self.reputations["Treacherous"],
+            "Dignified": self.reputations["Dignified"],
+            "Deceitful": self.reputations["Deceitful"],
+            "Brave": self.reputations["Brave"],
+            "Cunning": self.reputations["Cunning"],
+            "Tyrannical": self.reputations["Tyrannical"]
+        }
 
     def __str__(self):
         return str(self.to_dict())
