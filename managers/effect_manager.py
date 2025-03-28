@@ -3,7 +3,8 @@ from .effects_registry import register_effect, effects_registry
 
 
 class Effect: 
-    def __init__(self, effect_type: str, params: Dict[str,Any]):
+    def __init__(self,name:str ,effect_type: str, params: Dict[str,Any]):
+        self.name = name
         self.effect_type = effect_type
         self.params = params
 

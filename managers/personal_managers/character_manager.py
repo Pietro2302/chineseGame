@@ -2,14 +2,14 @@ import sys
 import os
 import uuid
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from managers.personal_managers.inventory_class import InventoryManager, Item
-from managers.personal_managers.quest_class import QuestsManager, Quest
-from managers.personal_managers.relationship_class import RelationshipsManager, Relationship
-from managers.personal_managers.reputation_class import ReputationsManager
-from managers.personal_managers.skills_class import Skill, CharacterSkillsManager
-from managers.personal_managers.title_class import TitlesManager, Title
-from managers.effect_manager import EffectManager
-from managers.personal_managers.buffs_manager import BuffsManager, Buff
+from inventory_class import InventoryManager, Item
+from quest_class import QuestsManager, Quest
+from relationship_class import RelationshipsManager, Relationship
+from reputation_class import ReputationsManager
+from skills_class import CharacterSkillsManager, Skill
+from title_class import TitlesManager, Title
+from ..effect_manager import EffectManager
+from buffs_manager import BuffsManager, Buff
 
 class Character:
     def __init__(self, 
@@ -194,6 +194,7 @@ class CharacterManager:
             raise ValueError("The effectManager object is None, please insert a valid object.")
         elif not isinstance(effectManager,EffectManager):
             raise TypeError("effectManager must be a EffectManager Object")
+        self.character = character
         self.inventoryManager = InventoryManager(character.inventory.get("bottom"),character.inventory.get("top"),character.inventory.get("leftHand"),character.inventory.get("rightHand"),character.inventory.get("head"),character.inventory.get("bag"))
         self.questManager = QuestsManager(character.quests.get("active_quests"),character.quests.get("completed_quests"))
         self.relationshipManager = RelationshipsManager(character.relationships.get("npc_relations"),character.relationships.get("factions_relations"))
@@ -202,5 +203,91 @@ class CharacterManager:
         self.titleManager = TitlesManager(character.titles)
         self.buffsManager = BuffsManager(character.buffs.get("Permanent"),character.buffs.get("Temporary"))
         self.effectManager = effectManager
+
+    def changeFirstName(self, newName:str):
+        if not isinstance(newName,str):
+            raise TypeError("The family name needs to be a string.")
+        self.character.first_name = newName
+ 
+    def changeFamilyName(self, newName: str):
+        if not isinstance(newName,str):
+            raise TypeError("The family name needs to be a string.")
+        self.character.family_name = newName
+    
+    def changeGender(self, newGender: str):
+        if not isinstance(newGender,str) or newGender not in ["Male", "Female", "Other"]:
+            raise ValueError("The new gender needs to be a string equal to 'Male', 'Female' or 'Other'.")
+        self.character.gender = newGender
+    
+    def changeLevel(self, newLevel: int):
+        if not isinstance(newLevel, int) or newLevel < 0:
+            raise ValueError("The new level needs to be a positive integer.")
+        self.character.level = newLevel
+    
+    def levelUp(self):
+        self.character.level += 1
+    
+    def checklevelUp(self):
+        return False
+
+    def changeXp(self,newXp: int):
+        if not isinstance(newXp, int) or newXp < 0:
+            raise ValueError("The new xp needs to be a positive integer.")
+        self.character.xp = newXp    
+    
+    def earnedXp(self,earnedXp: int):
+        if not isinstance(earnedXp, int) or earnedXp < 0:
+            raise ValueError("The earned xp needs to be a positive integer.")
+        self.character.xp += earnedXp
+        if self.checklevelUp():
+            self.levelUp()   
+    
+    def checkDebt(self):
+        return False
+
+    def changeCurrency(self,newCurrency: float):
+        if not isinstance(newCurrency, float):
+            raise ValueError("The new currency needs to be a float.")
+        self.character.currency = newCurrency
+        if self.checkDebt:
+            pass
+    
+    def earnedCurrency(self, earnedCurrency: float):
+        if not isinstance(earnedCurrency, float):
+            raise ValueError("The new currency needs to be a float.")
+        self.character.currency += earnedCurrency
+        if self.checkDebt:
+            pass
+    
+    def changeAttributes(self, attribute:str,newAttribute:int):
+        attributes_keys = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]
+        if not isinstance(attribute,str) or not isinstance(newAttribute,int) or newAttribute < 0:
+            raise ValueError("The new attribute chosen must be a string, and the value of the new attribute must be a positive integer.")
+        if not attribute in attributes_keys:
+            raise ValueError("The new attributes must be one of ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'].")
         
+        self.character.attributes[attribute] = newAttribute 
+    
+    def additionAttributes(self, attribute:str,additiveAttribute:int):
+        attributes_keys = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]
+        if not isinstance(attribute,str) or not isinstance(additiveAttribute,int):
+            raise ValueError("The new attribute chosen must be a string, and the value of the new attribute must be an integer.")
+        if not attribute in attributes_keys:
+            raise ValueError("The new attributes must be one of ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'].")
         
+        self.character.attributes[attribute] += additiveAttribute
+    
+    def addSkill(self, newSkill: Skill):
+        if not isinstance(newSkill,Skill):
+            raise TypeError("The new skill must be a Skill type.")
+        self.character.skills[newSkill.name] = newSkill
+    
+    def removeSkill(self, targetSkill: str):
+        if not isinstance(targetSkill, str):
+            raise TypeError("The name of the targetSkill must be a string.")
+        del(self.character.skills[targetSkill])
+    
+    def changeSkill(self, targetSkill:str):
+        if not isinstance(targetSkill, str):
+            raise TypeError("The name of the targetSkill must be a string.")
+        self.skillManager.changeSkill(targetSkill)

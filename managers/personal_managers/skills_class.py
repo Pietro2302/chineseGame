@@ -34,6 +34,8 @@ class CharacterSkillsManager:
     def __init__(self, skills = None):
         self.skills = skills if skills is not None else {}
 
+    def changeSkill(self, skillName:str):
+        pass
     def to_dict(self):
         return {
             "skills": self.skills,
